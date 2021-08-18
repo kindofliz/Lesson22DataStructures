@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Lesson22 {
+public class Lessons22and23 {
     public static void main(String[] args) {
 
 
