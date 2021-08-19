@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Lessons22and23 {
     public static void main(String[] args) {
@@ -196,39 +197,138 @@ public class Lessons22and23 {
                 System.out.println(productName + " has the highest price! It's " + max + " Eur.");
             }
         }
+        System.out.println();
 
 
 
-//        //Create a new HashMap with other products.
-//        HashMap<String, Integer> productPriceNew = new HashMap<>();
+        //Create a new HashMap with other products.
+        HashMap<String, Integer> productPriceNew = new HashMap<>();
 
-//        //Save at least 8 products in the HashMap.
-//        productPriceNew.put("Apple", 1);
-//        productPriceNew.put("Milk", 2);
-//        productPriceNew.put("Cheese", 6);
-//        productPriceNew.put("Computer", 900);
-//        productPriceNew.put("Couch", 500);
-//        productPriceNew.put("Chocolate", 1);
-//        productPriceNew.put("Mobile phone", 400);
-//        productPriceNew.put("Sourcream", 1);
+        //Save at least 8 products in the HashMap.
+        productPriceNew.put("Banana", 1);
+        productPriceNew.put("Bread", 2);
+        productPriceNew.put("BBQ Sauce", 4);
+        productPriceNew.put("Pan", 40);
+        productPriceNew.put("Desk", 200);
+        productPriceNew.put("Tomatoes", 2);
+        productPriceNew.put("TV", 350);
+        productPriceNew.put("Mayo", 3);
+
+        //Merge both HashMaps
+        productPrice.putAll(productPriceNew);
+        System.out.println("Number of products in the merged HashMap: " + productPrice.size());
+        System.out.println();
+
+        //*Sort all values in ascending order.
+        HashMap<String, Integer> sortedProductPrice = productPrice.entrySet().stream().sorted(Comparator.comparingInt(value -> value.getValue())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a,b) -> {throw new AssertionError();}, LinkedHashMap::new));
+        sortedProductPrice.entrySet().forEach(System.out::println);
+        System.out.println();
+
+
+
+
+
+
+        //Same with HASHTABLE
+        Hashtable<String, Integer> productPriceTable = new Hashtable<>();
+
+        //Save at least 8 products in the HashMap.
+        productPriceTable.put("Apple", 1);
+        productPriceTable.put("Milk", 2);
+        productPriceTable.put("Cheese", 6);
+        productPriceTable.put("Computer", 900);
+        productPriceTable.put("Couch", 500);
+        productPriceTable.put("Chocolate", 1);
+        productPriceTable.put("Mobile phone", 400);
+        productPriceTable.put("Sourcream", 1);
+
+        //Find out how many products are under 1 eur.
+        int counterUnder1 = 0;
+        for (Integer price : productPriceTable.values()) {
+            if (price <= 1) {
+                counterUnder1++;
+            }
+        }
+
+        System.out.println("TABLE. There are " + counterUnder1 + " items below 1 eur");
+        System.out.println();
+
+
+        //Find out which product price is the lowest
+        int minPrice = productPriceTable.get("Apple");
+        for (Integer price : productPriceTable.values()) {
+            if (price < minPrice) {
+                minPrice = price;
+            }
+        }
+        for (String productName: productPriceTable.keySet()) {
+            if (productPriceTable.get(productName) == minPrice) {
+                System.out.println("TABLE. " + productName + " has the lowest price! It's " + minPrice + " Eur.");
+            }
+        }
+        System.out.println();
+
+
+        //Find out which product price is the highest
+        int maxPrice = 0;
+        for (Integer price : productPriceTable.values()) {
+            if (price > maxPrice) {
+                maxPrice = price;
+            }
+        }
+        for (String productName: productPriceTable.keySet()) {
+            if (productPrice.get(productName) == maxPrice) {
+                System.out.println("TABLE. " + productName + " has the highest price! It's " + maxPrice + " Eur.");
+            }
+        }
+        System.out.println();
+
+
+
+
+
+        //Create a new HashMap with other products.
+        HashMap<String, Integer> productPriceTableNew = new HashMap<>();
+
+        //Save at least 8 products in the HashMap.
+        productPriceTableNew.put("Banana", 1);
+        productPriceTableNew.put("Bread", 2);
+        productPriceTableNew.put("BBQ Sauce", 4);
+        productPriceTableNew.put("Pan", 40);
+        productPriceTableNew.put("Desk", 200);
+        productPriceTableNew.put("Tomatoes", 2);
+        productPriceTableNew.put("TV", 350);
+        productPriceTableNew.put("Mayo", 3);
+
+        //Merge both HashMaps
+        productPriceTable.putAll(productPriceTableNew);
+        System.out.println("TABLE. Number of products in the merged HashTable: " + productPriceTable.size());
+        System.out.println();
+
+
+        //*Sort all values in ascending order WITH LAMBDA
+        HashMap<String, Integer> sortedProductPriceTable = productPriceTable.entrySet().stream().sorted(Comparator.comparingInt(value -> value.getValue())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a,b) -> {throw new AssertionError();}, LinkedHashMap::new));
+        System.out.println("TABLE SORTED:");
+        sortedProductPriceTable.entrySet().forEach(System.out::println);
+        System.out.println();
+
+
+        //*Sort all values in ascending order ANOTHER WAY
+        HashMap<String, Integer> sortedProductPriceTable2 = productPriceTable.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue(),(entry1, entry2) -> entry2, LinkedHashMap::new));
+        System.out.println("TABLE SORTED BY VALUE (DIFFERENT METHOD): " + sortedProductPriceTable2);
+
+
+
+
+
+
+
 
 
 
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -259,4 +359,7 @@ static boolean isPalindrome(String possiblePalindrome){
         }
         return true;
         }
-        }
+
+
+
+}
